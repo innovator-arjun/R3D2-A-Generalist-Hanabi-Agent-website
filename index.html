@@ -30,17 +30,6 @@
 </head>
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-</nav>
-
 
 <section class="hero">
   <div class="hero-body">
@@ -92,7 +81,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://openreview.net/pdf?id=pCj2sLNoJq"
+                <a href="https://openreview.net/forum?id=pCj2sLNoJq"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -161,23 +150,21 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Traditional multi-agent reinforcement learning (MARL) systems can develop cooperative strategies through repeated interactions. However, these systems are
-            unable to perform well on any other setting than the one they have been trained
-            on, and struggle to successfully cooperate with unfamiliar collaborators. This is
-            particularly visible in the Hanabi benchmark, a popular 2-to-5 player cooperative card-game which requires complex reasoning and precise assistance to other
-            agents. Current MARL agents for Hanabi can only learn one specific game-setting
-            (e.g., 2-player games), and play with the same algorithmic agents. This is in
-            stark contrast to humans, who can quickly adjust their strategies to work with
-            unfamiliar partners or situations. In this paper, we introduce Recurrent Replay
-            Relevance Distributed DQN (R3D2), a generalist agent for Hanabi, designed to
-            overcome these limitations. We reformulate the task using text, as language has
-            been shown to improve transfer. We then propose a distributed MARL algorithm
-            that copes with the resulting dynamic observation- and action-space. In doing
-            so, our agent is the first that can play all game settings concurrently, and extend
-            strategies learned from one setting to other ones. As a consequence, our agent
-            also demonstrates the ability to collaborate with different algorithmic agents —
-            agents that are themselves unable to do so. The implementation code is available
-            at: R3D2-A-Generalist-Hanabi-Agent
+            <p><strong>Traditional Multi-Agent Reinforcement Learning (MARL) Limitations:</strong></p>  
+            <p>MARL systems develop cooperative strategies through repeated interactions. However, they struggle to generalize beyond their training setting and fail to collaborate effectively with unfamiliar agents.</p>  
+
+            <p><strong>The Hanabi Benchmark Challenge:</strong></p>  
+            <p>Hanabi, a popular 2-to-5 player cooperative card game, requires complex reasoning and precise assistance. Current MARL agents can only play in fixed game settings (e.g., 2-player) and with the same algorithmic agents, unlike humans who adapt dynamically to new partners.</p>  
+
+            <p><strong>Introducing R3D2:</strong></p>  
+            <ul>  
+              <li><strong>Recurrent Replay Relevance Distributed DQN (R3D2)</strong> is a generalist agent designed to overcome these limitations.</li>  
+              <li>We reformulate Hanabi using text-based inputs, leveraging language for improved transfer learning.</li>  
+              <li>R3D2 employs a distributed MARL algorithm to handle dynamic observation- and action-spaces.</li>  
+              <li>It is the first agent capable of playing all Hanabi game settings concurrently and extending strategies across different settings.</li>  
+              <li>Unlike previous agents, R3D2 can collaborate with various algorithmic agents that otherwise fail to do so.</li>  
+            </ul>  
+
           </p>
         </div>
       </div>
@@ -192,118 +179,92 @@
 <section class="section">
   <div class="container is-max-desktop">
 
-    <div class="columns is-centered">
 
-      <!-- Visual Effects. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Hanabi Template - Text</h2>
-          <p>
-            It includes all necessary information to play the game, including life and clue tokens, visible hands, discarded cards, and hints
-          </p>
-            <figure class="image is-3by2">
-              <img src="./static/images/hanabi_txt.png" alt="Fullbody Preview">
-            </figure>
-        </div>
-      </div>
-      <!--/ Visual Effects. -->
-
-      <!-- Matting. -->
-      <div class="column">
-        <h2 class="title is-3">R3D2 in 2-Player settings</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              Selfplay, intra-XP and inter-XP performance in 2-player setting averaged across three independent seeds per method. R3D2 achieves significantly better inter-XP compared to the baselines while maintaining a competitive SP and intra-XP.
-            </p>
-            <figure class="image is-3by2">
-              <img src="./static/images/sp_cp_barplot.jpg" alt="Fullbody Preview">
-            </figure>
-          </div>
-
-        </div>
-      </div>
-    </div>
     <!--/ Matting. -->
 
     <!-- Animation. -->
     <div class="columns is-centered">
       <div class="column is-full-width">
 
+        <div class="content">
+          <h2 class="title is-3">Hanabi Template - Text</h2>
+          <p><strong>Our first contribution:</strong> We frame Hanabi as a text-based game, inspired by the success of language models like GPT in transfer learning.</p>  
+
+<p>This textual representation includes all necessary game information: <u>Life and clue tokens, Visible hands, Discarded cards, Hints </u></p> 
+
+            <figure class="image">
+              <img src="./static/images/hanabi_archi.jpg" alt="Fullbody Preview" style="width: 40%; height: auto;">
+            </figure>
+
+
+        </div>
         <!-- Interpolating. -->
         <h3 class="title is-4">Policy Transfer - Zeroshot setting:</h3>
         <div class="content has-text-justified">
-          <p>
-             Each subplot shows the evaluation setting for an n-player game. Each bar represents a combination where 0 < i < n agents are trained in a different setting, while the remaining n − i players are trained on n-player games. R3D2 agents demonstrate strong zero-shot generalization to novel settings.  
-          
-            Moreover, R2D2-text appears unable to match R3D2’s transfer performance, especially when transferring from a setting with a large number of actions to one with a smaller action space.
-          </p>
+          <p><strong>Background:</strong></p>  
+          <p>In multi-agent Hanabi, increasing the number of players introduces greater complexity, making strategy coordination more difficult.  
+          A well-designed agent should not only adapt across different game settings but also transfer knowledge effectively between them.</p>  
+
+          <p><strong>Key Observations:</strong></p>  
+          <ul>  
+            <li>As the number of players increases, overall performance decreases due to increased strategy complexity.</li>  
+            <li>R3D2-M learns competitive strategies across settings and effectively transfers knowledge, unlike R2D2-text.</li>  
+            <li>Despite training via self-play, R3D2 maintains high cross-play performance, adapting well to new partners.</li>  
+            <li>Dynamic action-space handling is crucial for learning generalizable policies, beyond just textual observations.</li>  
+          </ul>
+
           
         </div>
         <figure class="image">
           <img src="./static/images/results.png" alt="Fullbody Preview">
         </figure>
+
         <br/>
         <!--/ Interpolating. -->
         <h3 class="title is-4">Zero-shot coordination matrix:</h3>
         <!-- Results. -->
-        <h3 >
-          2 player zero-shot coordination matrix between different methods and three independent seeds per method. R3D2 achieves better inter-XP with IQL, R2D2- OBL and R2D2-OP
-        </h3> 
+        <div class="content has-text-justified">
+        <p><strong>R3D2's Robustness in Cross-Play:</strong></p>
+        <p>We compared R3D2’s policies in cross-play settings with other baseline algorithms, evaluating performance across multiple seeds. The results highlight R3D2's robustness, especially in inter-XP, where it outperforms R2D2 and R2D2-OP. This suggests R3D2 learns more general strategies, making it more adaptable to new agents and game settings.</p>
+
+        <p><strong>Key Observations:</strong></p>
+        <ul>
+          <li>R2D2 and R2D2-OP showed lower intra-XP performance compared to self-play, especially surprising for R2D2-OP, which is designed for better cooperation.</li>
+          <li>R3D2's performance in intra-XP was on par with self-play, proving that self-play can lead to robust strategies when using the right representation.</li>
+          <li>R3D2 consistently outperforms in inter-XP, especially when paired with R2D2-OBL, indicating its ability to learn transferable strategies across diverse agents.</li>
+          <li>R3D2-M, trained on multiple settings, demonstrated better adaptability in inter-XP, benefiting from exposure to diverse strategies during training.</li>
+        </ul>
+
+        <p><strong>Key Takeaway:</strong></p>
+        <p>R3D2's ability to adapt to new agents and game settings makes it a powerful tool for multi-agent cooperation. Its robustness in cross-play scenarios shows that self-play, when paired with the right representations, can produce more flexible and transferable strategies than methods designed for zero-shot cooperation.</p>
+        </div>
+
+
         <!--/ Results. -->
-        <figure class="image is-3by2">
-          <img src="./static/images/cp_matrix.jpg" alt="Fullbody Preview">
-        </figure>
+
+        <div class="item item-fullbody" style="display: flex; gap: 20px; ">
+          <figure class="image is-3by2" style="flex: 1;">
+            <img src="/static/images/sp_cp_barplot.jpg" alt="Bar Plot" style="width: 100%; height: auto;">
+          </figure>
+
+          <figure class="image is-3by2" style="flex: 1.3;">
+            <img src="/static/images/cp_matrix.jpg" alt="Matrix" style="width: 100%; height: auto;">
+          </figure>
+        </div>
 
 
-      </div>
-    </div>
-
-
-
-
-
-    <!--/ Animation. -->
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
+          <h2 class="title is-3">Video</h2>
+          <div class="publication-video">
 
           <iframe src="https://www.youtube.com/embed/2PUEib21nFc?rel=0&amp;showinfo=0"
                   frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+          </div>
+
+
         </div>
       </div>
     </div>
-    <!--/ Paper video. -->
-
-    <!-- Concurrent Work. -->
-    <!-- <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
-          </p>
-        </div>
-      </div>
-    </div> -->
-    <!--/ Concurrent Work. -->
-
   </div>
 </section>
 
