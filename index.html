@@ -72,7 +72,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://openreview.net/pdf?id=pCj2sLNoJq"
+                <a href="https://openreview.net/forum?id=pCj2sLNoJq"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -81,7 +81,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://openreview.net/forum?id=pCj2sLNoJq"
+                <a href="https://arxiv.org/abs/2503.14555"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -149,6 +149,10 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
+          <p><strong>TL;DR:</strong> We present the first agent capable of both playing all Hanabi settings simultaneously and generalizing <em>zero-shot</em> to novel partners and game configurations. Achieving this through <strong>self-play</strong>, without complex MARL methods, demonstrates a task-agnostic approach to generalization that we believe is valuable to the MARL community.</p>  
+
+          <p>Real-world multi-agent environments require agents that can adapt to <strong>dynamic settings</strong> and collaborate with diverse partners seamlessly, and <strong>R3D2</strong> is a path towards that goal.</p>
+
           <p>
             <p><strong>Traditional Multi-Agent Reinforcement Learning (MARL) Limitations:</strong></p>  
             <p>MARL systems develop cooperative strategies through repeated interactions. However, they struggle to generalize beyond their training setting and fail to collaborate effectively with unfamiliar agents.</p>  
@@ -160,9 +164,8 @@
             <ul>  
               <li><strong>Recurrent Replay Relevance Distributed DQN (R3D2)</strong> is a generalist agent designed to overcome these limitations.</li>  
               <li>We reformulate Hanabi using text-based inputs, leveraging language for improved transfer learning.</li>  
-              <li>R3D2 employs a distributed MARL algorithm to handle dynamic observation- and action-spaces.</li>  
-              <li>It is the first agent capable of playing all Hanabi game settings concurrently and extending strategies across different settings.</li>  
-              <li>Unlike previous agents, R3D2 can collaborate with various algorithmic agents that otherwise fail to do so.</li>  
+              <li>R3D2  is an improved version of R2D2 that can handle dynamic observation and action spaces.</li>  
+              <li>R3D2 can do zero-shot coordination with novel partners by only relying on self-play training.</li>  
             </ul>  
 
           </p>
@@ -175,41 +178,42 @@
   </div>
 </section>
 
-
 <section class="section">
   <div class="container is-max-desktop">
-
-
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
     <div class="columns is-centered">
       <div class="column is-full-width">
 
         <div class="content">
           <h2 class="title is-3">Hanabi Template - Text</h2>
-          <p><strong>Our first contribution:</strong> We frame Hanabi as a text-based game, inspired by the success of language models like GPT in transfer learning.</p>  
-
-<p>This textual representation includes all necessary game information: <u>Life and clue tokens, Visible hands, Discarded cards, Hints </u></p> 
+          <p><strong>Our first contribution:</strong> We frame Hanabi as a text-based game, inspired by the success of language models like GPT in transfer learning.This textual representation includes all necessary game information: <u>Life and clue tokens, Visible hands, Discarded cards, Hints. </u></p> 
 
             <figure class="image">
-              <img src="./static/images/hanabi_archi.jpg" alt="Fullbody Preview" style="width: 40%; height: auto;">
+              <img src="./static/images/hanabi_archi.jpg" alt="Fullbody Preview" style="width: 45%; height: auto;">
             </figure>
 
+
+          <h2 class="title is-3">LLM results on Hanabi-Text:</h2>
+          <p>We evaluated the <strong>state-of-the-art LLMs</strong> by prompting them on some expert Hanabi trajectories to assess if we could develop a <strong>generalist Hanabi agent</strong> without any online reinforcement learning.</p>  
+
+          <p>Our results demonstrate that <strong>current LLMs are still far from solving text-based Hanabi</strong>. For instance, the <code>o3-mini</code> model achieved only <strong>12 out of 25</strong> with a reasonable amount of prompting effort.</p>
+
+
+            <figure class="image">
+              <img src="./static/images/llm_results.png" alt="Fullbody Preview" style="width: 80%; height: auto;">
+            </figure>
 
         </div>
         <!-- Interpolating. -->
         <h3 class="title is-4">Policy Transfer - Zeroshot setting:</h3>
         <div class="content has-text-justified">
           <p><strong>Background:</strong></p>  
-          <p>In multi-agent Hanabi, increasing the number of players introduces greater complexity, making strategy coordination more difficult.  
-          A well-designed agent should not only adapt across different game settings but also transfer knowledge effectively between them.</p>  
+          <p>In <strong>multi-agent Hanabi</strong>, increasing the number of players introduces <strong>greater complexity</strong>, making strategic coordination more difficult. <strong>R3D2</strong> observes and interacts with its environment through <em>natural language</em>, which helps transfer learned behavior to other tasks. It can also be <strong>deployed in different game settings</strong> without any modification to the architecture.</p>
 
           <p><strong>Key Observations:</strong></p>  
           <ul>  
             <li>As the number of players increases, overall performance decreases due to increased strategy complexity.</li>  
-            <li>R3D2-M learns competitive strategies across settings and effectively transfers knowledge, unlike R2D2-text.</li>  
-            <li>Despite training via self-play, R3D2 maintains high cross-play performance, adapting well to new partners.</li>  
+            <li><strong>R3D2-M</strong> learns competitive strategies across settings and effectively transfers knowledge, unlike <code>R2D2-text</code>.</li>  
+            <li>Despite training via <strong>self-play</strong>, <strong>R3D2</strong> maintains high cross-play performance, adapting well to new partners.</li>  
             <li>Dynamic action-space handling is crucial for learning generalizable policies, beyond just textual observations.</li>  
           </ul>
 
@@ -224,29 +228,25 @@
         <h3 class="title is-4">Zero-shot coordination matrix:</h3>
         <!-- Results. -->
         <div class="content has-text-justified">
+        <p><strong>Intra-cross-play (Intra-XP): </strong> Enables agents within the same system to collaborate using shared strategies.</p>  
+
+        <p><strong>Inter-cross-play (Inter-XP): </strong> Facilitates interactions between distinct agent groups or external partners, allowing for more diverse coordination.</p>  
+
+        <p><strong>Self-play (SP): </strong> Trains agent by having it compete against its own evolving iterations, enabling continuous improvement.</p>
+
         <p><strong>R3D2's Robustness in Cross-Play:</strong></p>
-        <p>We compared R3D2’s policies in cross-play settings with other baseline algorithms, evaluating performance across multiple seeds. The results highlight R3D2's robustness, especially in inter-XP, where it outperforms R2D2 and R2D2-OP. This suggests R3D2 learns more general strategies, making it more adaptable to new agents and game settings.</p>
+        <p>We compared <strong>R3D2’s policies</strong> in cross-play settings with other baseline algorithms, evaluating performance across multiple seeds. The results highlight <strong>R3D2's robustness</strong>, especially in <strong>inter-XP</strong>, where it outperforms <code>R2D2</code> and <code>R2D2-Other Play (OP)</code>. This suggests that R3D2 learns more general strategies, making it more adaptable to new agents and game settings.</p>  
 
-        <p><strong>Key Observations:</strong></p>
-        <ul>
-          <li>R2D2 and R2D2-OP showed lower intra-XP performance compared to self-play, especially surprising for R2D2-OP, which is designed for better cooperation.</li>
-          <li>R3D2's performance in intra-XP was on par with self-play, proving that self-play can lead to robust strategies when using the right representation.</li>
-          <li>R3D2 consistently outperforms in inter-XP, especially when paired with R2D2-OBL, indicating its ability to learn transferable strategies across diverse agents.</li>
-          <li>R3D2-M, trained on multiple settings, demonstrated better adaptability in inter-XP, benefiting from exposure to diverse strategies during training.</li>
-        </ul>
-
-        <p><strong>Key Takeaway:</strong></p>
-        <p>R3D2's ability to adapt to new agents and game settings makes it a powerful tool for multi-agent cooperation. Its robustness in cross-play scenarios shows that self-play, when paired with the right representations, can produce more flexible and transferable strategies than methods designed for zero-shot cooperation.</p>
-        </div>
+        <p>In a <strong>2-player setting</strong>, we observed that <code>R3D2-S</code> outperforms <code>IQL</code> and <code>OP</code> in all metrics and achieves a performance close to Off-Belief Learning<code>OBL</code> in both <strong>SP</strong> and <strong>Intra-XP</strong>, while surpassing <code>OBL</code> in <strong>inter-XP</strong>. Importantly, this is achieved solely through <strong>self-play pre-training</strong> without any ZSC-specific method, demonstrating that <strong>R3D2 can effectively coordinate with other partners.</strong></p>
 
 
+        
         <!--/ Results. -->
 
-        <figure class="image">
+
+       <figure class="image">
           <img src="./static/images/zero.png" alt="Fullbody Preview">
         </figure>
-
-
 
           <h2 class="title is-3">Video</h2>
           <div class="publication-video">
